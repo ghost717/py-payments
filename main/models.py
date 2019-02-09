@@ -10,12 +10,10 @@ class Category(models.Model):
     cat = models.IntegerField(default=0,choices=RODZAJE)
 
 class Payment(models.Model):
+   # category = models.ForeignKey(Category, on_delete=models.CASCADE) # rel on to many
     name = models.CharField(max_length=128)
-    description = models.TextField(default="")
+    description = models.TextField(null=True, blank=True)
     value = models.IntegerField(null=True, blank=True)
-
-    #rel 1-1
-    info = models.OneToOneField(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name # return self.name
