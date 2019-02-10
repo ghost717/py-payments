@@ -17,6 +17,9 @@ class Cat(models.Model):
     }
     cat = models.IntegerField(default=0,choices=RODZAJE)
 
+    # def __str__(self):
+    #     return self.RODZAJE
+
 class Payment(models.Model):
     category = models.ForeignKey(Cat, on_delete=models.CASCADE) # rel on to many
     name = models.CharField(max_length=128)
