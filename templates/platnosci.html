@@ -13,7 +13,7 @@
                 {% for platnosc in platnosci %}
                 <!-- {{ forloop.counter0 }} -->
 
-                    <li>{{ platnosc }} {{ platnosc.value }} {{ suma|add:platnosc.value }}</li>
+                    <li>{{ forloop.counter0 }} {{ platnosc }} {{ platnosc.value }} {{ suma|add:platnosc.value }}</li>
                 
                 {% endfor %}
             </ul>

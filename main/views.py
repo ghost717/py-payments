@@ -11,7 +11,8 @@ def platnosci(request):
     # filmy = ['Titanic', 'Avatar', 'Bravehear']
     # filmy = Movie.objects.filter(id=3)
     platnosci = Payment.objects.all()
+    subtotal = Payment.objects.count()
 
-    return render(request, 'platnosci.html', {'platnosci': platnosci, 'suma': 0})
+    return render(request, 'platnosci.html', {'platnosci': platnosci, 'suma': subtotal})
 
 #@login_required
