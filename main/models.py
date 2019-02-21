@@ -10,7 +10,7 @@ from django.db import models
 #     cat = models.IntegerField(default=0,choices=RODZAJE)
 
 class Post(models.Model):
-    title = models.CharField(maxLength=128)
+    title = models.CharField(max_length=120, default="Title")
     content = models.TextField(default="")
     date = models.DateField(null=True, blank=True)
     thumbnail = models.ImageField(null=True, blank=True, upload_to='post') #(null=True, blank=True, upload_to='plakaty')
