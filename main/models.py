@@ -9,6 +9,8 @@ from django.db import models
 #     }
 #     cat = models.IntegerField(default=0,choices=RODZAJE)
 
+
+
 class Cat(models.Model):
     RODZAJE = {
         (0, 'Płatność'),
