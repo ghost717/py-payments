@@ -16,7 +16,7 @@ class Post(models.Model):
     thumbnail = models.ImageField(null=True, blank=True, upload_to='post') #(null=True, blank=True, upload_to='plakaty')
     
     def __str__(self):
-        return self.name
+        return self.title
 
 class Cat(models.Model):
     RODZAJE = {
