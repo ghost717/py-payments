@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Payment, Post
-# from .forms import MovieForm
+
+import os
+
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -23,6 +25,12 @@ def posts(request):
     subtotal = Post.objects.count()
 
     return render(request, 'posts.html', {'posts': posts, 'suma': subtotal})
-    
+
+def listingFilesInDir(request):
+    path = r"C:\serwer\htdocs\dev\python\paymentes\app\my-media\post"
+    img_list = os.listdir(path)
+
+    return render(request, 'gallery.html', {'images': img_list})
+
 
 
