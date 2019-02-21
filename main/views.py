@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Payment
+from .models import Payment, Post
 # from .forms import MovieForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+#@login_required
 def platnosci(request):
    
     # filmy = ['Titanic', 'Avatar', 'Bravehear']
@@ -16,3 +17,12 @@ def platnosci(request):
     return render(request, 'platnosci.html', {'platnosci': platnosci, 'suma': subtotal})
 
 #@login_required
+def posts(request):
+
+    posts = Post.objects.all()
+    subtotal = Post.objects.count()
+
+    return render(request, 'posts.html', {'posts': posts, 'suma': subtotal})
+    
+
+

@@ -1,5 +1,5 @@
 *.idea
 *.sqllite3
 *pyc
-moje_media
+my-media
 .migrations
