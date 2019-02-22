@@ -11,12 +11,16 @@
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
-        
+            <a href="{% url 'newPost' %}">Dodaj post</a>
+
             <ul>
                 {% for post in posts %}
                 <!-- {{ forloop.counter0 }}  -->
 
-                    <li>{{ forloop.counter0 }} {{ post }} {{ post.content }}  {{ post.date }} <img src="/media/{{ post.thumbnail }}" alt=""></li>
+                    <li>{{ forloop.counter0 }} {{ post }} {{ post.content }}  {{ post.date }} 
+                        <img src="/media/{{ post.thumbnail }}" alt="">
+                        <a href="{% url 'editPost' post.id %}">Edytuj</a> <a href="{% url 'deletePost' post.id %}">Usun</a>
+                    </li>
                 
                 {% endfor %}
             </ul>
