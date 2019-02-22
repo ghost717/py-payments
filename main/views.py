@@ -50,6 +50,16 @@ def editPost(request, id):
 
     return render(request, 'formPost.html', {'form': form}) 
 
+def deletePost(request, id):
+
+    post = get_object_or_404(Post, pk=id)
+
+    if request.method == "POST":
+        post.delete()
+
+        return redirect(posts)
+
+    return render(request, 'accept.html', {'post': post}) 
 
 def listingFilesInDir(request):
     path = r"C:\serwer\htdocs\dev\python\paymentes\app\my-media\post"
