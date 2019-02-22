@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Payment, Post
+from .forms import PostForm
 
 import os
 from django.conf import settings
@@ -26,6 +27,16 @@ def posts(request):
     subtotal = Post.objects.count()
 
     return render(request, 'posts.html', {'posts': posts, 'suma': subtotal})
+
+def newPost(request):
+
+    form = PostForm(request.POST or None, request.FILES or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect(newPost)
+
+    return render(request, 'newPost.html', {'form': form}) 
 
 def listingFilesInDir(request):
     path = r"C:\serwer\htdocs\dev\python\paymentes\app\my-media\post"
