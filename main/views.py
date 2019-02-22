@@ -34,9 +34,22 @@ def newPost(request):
 
     if form.is_valid():
         form.save()
-        return redirect(newPost)
+        return redirect(posts)
 
-    return render(request, 'newPost.html', {'form': form}) 
+    return render(request, 'formPost.html', {'form': form}) 
+
+def editPost(request, id):
+
+    post = get_object_or_404(Post, pk=id)
+
+    form = PostForm(request.POST or None, request.FILES or None, instance=post)
+
+    if form.is_valid():
+        form.save()
+        return redirect(posts)
+
+    return render(request, 'formPost.html', {'form': form}) 
+
 
 def listingFilesInDir(request):
     path = r"C:\serwer\htdocs\dev\python\paymentes\app\my-media\post"
