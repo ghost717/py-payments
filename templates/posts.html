@@ -10,7 +10,14 @@
 
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
-    <body>
+    <body>  
+            {% if user.is_authenticated %}
+                Witam {{ user.username }}
+                <a href="{% url 'logout' %}">logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">login</a> 
+            {% endif %}
+
             <a href="{% url 'newPost' %}">Dodaj post</a>
 
             <ul>
