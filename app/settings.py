@@ -126,3 +126,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = 'my-media'
 
+LOGIN_URL = 'login'
+
+LOGIN_REDIRECT_URL = 'posts'
+

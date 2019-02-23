@@ -7,10 +7,11 @@ from .forms import PostForm
 import os
 from django.conf import settings
 
+
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-#@login_required
+@login_required
 def platnosci(request):
    
     # filmy = ['Titanic', 'Avatar', 'Bravehear']
@@ -20,7 +21,6 @@ def platnosci(request):
 
     return render(request, 'platnosci.html', {'platnosci': platnosci, 'suma': subtotal})
 
-#@login_required
 def posts(request):
 
     posts = Post.objects.all()
@@ -28,6 +28,7 @@ def posts(request):
 
     return render(request, 'posts.html', {'posts': posts, 'suma': subtotal})
 
+@login_required
 def newPost(request):
 
     form = PostForm(request.POST or None, request.FILES or None)
@@ -38,6 +39,7 @@ def newPost(request):
 
     return render(request, 'formPost.html', {'form': form}) 
 
+@login_required
 def editPost(request, id):
 
     post = get_object_or_404(Post, pk=id)
@@ -50,6 +52,7 @@ def editPost(request, id):
 
     return render(request, 'formPost.html', {'form': form}) 
 
+@login_required
 def deletePost(request, id):
 
     post = get_object_or_404(Post, pk=id)
