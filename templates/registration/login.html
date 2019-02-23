@@ -7,10 +7,17 @@
 
 {% block body %} 
 
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form|bootstrap }}
-                <button type="submit">Login</button>
-            </form>
+    <div class="container">
+        <div class="card" style="width: 600px;">
+            <div class="card-body">
+                <h5 class="card-title">Login</h5>
+                <form role="form" method="post">
+                    {% csrf_token %}
+                    {{ form|bootstrap }}
+                    <button type="submit" class="btn btn-primary">Login <i class="fa fa-sign-in-alt"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

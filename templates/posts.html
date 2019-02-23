@@ -5,26 +5,61 @@
 {% endblock %}
 
 {% block body %} 
- 
-            {% if user.is_authenticated %}
-                Witam {{ user.username }}
-                <a href="{% url 'logout' %}">logout</a>
-            {% else %}
-                <a href="{% url 'login' %}">login</a> 
-            {% endif %}
 
-            <a href="{% url 'newPost' %}">Dodaj post</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    {% if user.is_authenticated %}
+                        Witam {{ user.username }}
+                        <a href="{% url 'logout' %}">logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">login</a> 
+                    {% endif %}
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <a href="{% url 'newPost' %}">Dodaj post</a>
+                </div>
+            </div>
 
-            <ul>
+            <div class="row">
+
                 {% for post in posts %}
-                <!-- {{ forloop.counter0 }}  -->
 
-                    <li>{{ forloop.counter0 }} {{ post }} {{ post.content }}  {{ post.date }} 
-                        <img src="/media/{{ post.thumbnail }}" alt="">
-                        <a href="{% url 'editPost' post.id %}">Edytuj</a> <a href="{% url 'deletePost' post.id %}">Usun</a>
-                    </li>
-                
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h5 class="card-title">{{ post }}</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <p>{{ post.content }}</p>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <img src="/media/{{ post.thumbnail }}" alt="">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <a href="{% url 'editPost' post.id %}">Edytuj <i class="fas fa-edit"></i></a>     
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <a href="{% url 'deletePost' post.id %}">Usun <i class="fas fa-trash-alt"></i></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
                 {% endfor %}
-            </ul>
+
+            </div>
+        </div>
 
 {% endblock %}
