@@ -18,6 +18,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class Images(models.Model):
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='gallery',verbose_name='Image')
+
 class Cat(models.Model):
     RODZAJE = {
         (0, 'Płatność'),

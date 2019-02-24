@@ -1,14 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Payment, Post
-from .forms import PostForm
+from .models import Payment, Post, Images
+from .forms import PostForm, ImageForm
 
 import os
 from django.conf import settings
 
-
+#login
 from django.contrib.auth.decorators import login_required
+
+#gallery
+from django.http import HttpResponseRedirect
+from django.forms import modelformset_factory
+from django.contrib import messages
 
 # Create your views here.
 @login_required
