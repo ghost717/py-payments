@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 #REST
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from .serializers import UserSerializer
+from .serializers import UserSerializer, PostSerializer
 
 #gallery
 from django.http import HttpResponseRedirect
@@ -26,6 +26,13 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 # Create your views here.
 @login_required
