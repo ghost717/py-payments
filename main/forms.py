@@ -3,9 +3,6 @@ from django import forms
 from .models import Post, Images
 
 class PostForm(forms.ModelForm):
-    title = forms.CharField(max_length=128)
-    content = forms.CharField(max_length=256, label="Item Description.")
-
     class Meta:
         model = Post
         fields = ['title', 'content', 'date', 'thumbnail'] 
