@@ -2,6 +2,14 @@ from django.urls import path, include
 from .views import platnosci, posts, newPost, editPost, deletePost, listingFilesInDir, listingFilesInDir2
 from django.contrib.auth import views as auth_views
 
+#REST
+from django.urls import include, path
+from rest_framework import routers
+from .views import UserViewSet
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+
 urlpatterns = [
     path('platnosci/', platnosci),
     path('posts/', posts, name="posts"),
@@ -12,4 +20,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('listingFilesInDir/', listingFilesInDir),
     path('listingFilesInDir2/', listingFilesInDir2),
+    path('', include(router.urls)),
 ]
