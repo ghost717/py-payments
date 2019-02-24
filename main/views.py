@@ -45,46 +45,12 @@ def platnosci(request):
 
     return render(request, 'platnosci.html', {'platnosci': platnosci, 'suma': subtotal})
 
-# def posts(request):
-
-#     posts = Post.objects.all()
-#     subtotal = Post.objects.count()
-
-#     return render(request, 'posts.html', {'posts': posts, 'suma': subtotal})
-
 def posts(request):
 
-    ImageFormSet = modelformset_factory(Images,
-                                        form=ImageForm, extra=3)
-    #'extra' means the number of photos that you can upload   ^
-    if request.method == 'POST':
+    posts = Post.objects.all()
+    subtotal = Post.objects.count()
 
-        postForm = PostForm(request.POST)
-        formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
-
-
-        if postForm.is_valid() and formset.is_valid():
-            post_form = postForm.save(commit=False)
-            post_form.user = request.user
-            post_form.save()
-
-            for form in formset.cleaned_data:
-                #this helps to not crash if the user   
-                #do not upload all the photos
-                if form:
-                    image = form['image']
-                    photo = Images(post=post_form, image=image)
-                    photo.save()
-            messages.success(request, "Yeeew, check it out on the home page!")
-            
-            return HttpResponseRedirect("/")
-        else:
-            print(postForm.errors, formset.errors)
-    else:
-        postForm = PostForm()
-        formset = ImageFormSet(queryset=Images.objects.none())
-
-    return render(request, 'test.html', {'postForm': postForm, 'formset': formset})
+    return render(request, 'posts.html', {'posts': posts, 'suma': subtotal})
 
 @login_required
 def newPost(request):
@@ -122,6 +88,39 @@ def deletePost(request, id):
 
     return render(request, 'accept.html', {'post': post}) 
 
+@login_required
+def postGallery(request):
+
+    ImageFormSet = modelformset_factory(Images, form=ImageForm, extra=3)
+    #'extra' means the number of photos that you can upload   ^
+    if request.method == 'POST':
+
+        postForm = PostForm(request.POST)
+        formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
+
+        if postForm.is_valid() and formset.is_valid():
+            post_form = postForm.save(commit=False)
+            post_form.user = request.user
+            post_form.save()
+
+            for form in formset.cleaned_data:
+                #this helps to not crash if the user   
+                #do not upload all the photos
+                if form:
+                    image = form['image']
+                    photo = Images(post=post_form, image=image)
+                    photo.save()
+                    messages.success(request, "Yeeew, check it out on the home page!")
+
+            return HttpResponseRedirect("/")
+        else:
+            print(postForm.errors, formset.errors)
+    else:
+        postForm = PostForm()
+        formset = ImageFormSet(queryset=Images.objects.none())
+
+    return render(request, 'test.html', {'postForm': postForm, 'formset': formset})
+
 def listingFilesInDir(request):
     path = r"C:\serwer\htdocs\dev\python\paymentes\app\my-media\post"
     img_list = os.listdir(path)
@@ -132,6 +131,7 @@ def listingFilesInDir2(request):
     dir_name = 'post'
     path = os.path.join(settings.MEDIA_ROOT, dir_name)
     images = []
+
     for f in os.listdir(path):
         if f.endswith("jpg") or f.endswith("png"): # to avoid other files
             images.append("%s%s/%s" % (settings.MEDIA_URL, dir_name, f)) # modify the concatenation to fit your neet
