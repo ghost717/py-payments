@@ -91,7 +91,17 @@ def deletePost(request, id):
 @login_required
 def postGallery(request):
 
-    ImageFormSet = modelformset_factory(Images, form=ImageForm, extra=3)
+    dir_name = 'test'
+    path = os.path.join(settings.MEDIA_ROOT, dir_name)
+    images = []
+
+    for f in os.listdir(path):
+        if f.endswith("jpg") or f.endswith("png"): # to avoid other files
+            images.append("%s%s/%s" % (settings.MEDIA_URL, dir_name, f)) # modify the concatenation to fit your neet
+    
+    totalImages = len(images)
+
+    ImageFormSet = modelformset_factory(Images, form=ImageForm, extra=totalImages)
     #'extra' means the number of photos that you can upload   ^
     if request.method == 'POST':
 
