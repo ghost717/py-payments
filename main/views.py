@@ -122,7 +122,9 @@ def postGallery(request):
                     photo.save()
                     messages.success(request, "Yeeew, check it out on the home page!")
 
-            return HttpResponseRedirect("/")
+            # return HttpResponseRedirect("/")
+            return redirect(posts)
+            
         else:
             print(postForm.errors, formset.errors)
     else:
