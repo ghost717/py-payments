@@ -97,8 +97,8 @@ def postGallery(request):
 
     for f in os.listdir(path):
         if f.endswith("jpg") or f.endswith("png"): # to avoid other files
-            images.append("%s%s/%s" % (settings.MEDIA_URL, dir_name, f)) # modify the concatenation to fit your neet
-    
+            images.append("%s/%s" % (dir_name, f)) # images.append("%s%s/%s" % (settings.MEDIA_URL, dir_name, f)) # modify the concatenation to fit your neet
+            
     totalImages = len(images)
 
     ImageFormSet = modelformset_factory(Images, form=ImageForm, extra=totalImages)
@@ -113,14 +113,19 @@ def postGallery(request):
             post_form.user = request.user
             post_form.save()
 
-            for form in formset.cleaned_data:
-                #this helps to not crash if the user   
-                #do not upload all the photos
-                if form:
-                    image = form['image']
-                    photo = Images(post=post_form, image=image)
-                    photo.save()
-                    messages.success(request, "Yeeew, check it out on the home page!")
+            # for form in formset.cleaned_data:
+            #     #this helps to not crash if the user   
+            #     #do not upload all the photos
+            #     if form:
+            #         image = form['image']
+            #         photo = Images(post=post_form, image=image)
+            #         photo.save()
+            #         messages.success(request, "Yeeew, check it out on the home page!")
+            for i in images:
+                image = i
+                photo = Images(post=post_form, image=image)
+                photo.save()
+                messages.success(request, "Yeeew, check it out on the home page!")
 
             # return HttpResponseRedirect("/")
             return redirect(posts)
