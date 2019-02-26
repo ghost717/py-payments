@@ -1,13 +1,13 @@
 from django.forms import ModelForm
-from .models import Post, Images
 from django import forms
+from .models import Post, Images
 
-class PostForm(ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'date', 'thumbnail'] 
 
-class ImageForm(ModelForm):
+class ImageForm(forms.ModelForm):
     image = forms.ImageField(label='Image')    
     class Meta:
         model = Images

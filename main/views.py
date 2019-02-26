@@ -16,9 +16,9 @@ from rest_framework import viewsets
 from .serializers import UserSerializer, PostSerializer
 
 #gallery
-from django.http import HttpResponseRedirect
 from django.forms import modelformset_factory
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -88,6 +88,51 @@ def deletePost(request, id):
 
     return render(request, 'accept.html', {'post': post}) 
 
+@login_required
+def postGallery(request):
+
+    dir_name = 'test'
+    path = os.path.join(settings.MEDIA_ROOT, dir_name)
+    images = []
+
+    for f in os.listdir(path):
+        if f.endswith("jpg") or f.endswith("png"): # to avoid other files
+            images.append("%s%s/%s" % (settings.MEDIA_URL, dir_name, f)) # modify the concatenation to fit your neet
+    
+    totalImages = len(images)
+
+    ImageFormSet = modelformset_factory(Images, form=ImageForm, extra=totalImages)
+    #'extra' means the number of photos that you can upload   ^
+    if request.method == 'POST':
+
+        postForm = PostForm(request.POST)
+        formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
+
+        if postForm.is_valid() and formset.is_valid():
+            post_form = postForm.save(commit=False)
+            post_form.user = request.user
+            post_form.save()
+
+            for form in formset.cleaned_data:
+                #this helps to not crash if the user   
+                #do not upload all the photos
+                if form:
+                    image = form['image']
+                    photo = Images(post=post_form, image=image)
+                    photo.save()
+                    messages.success(request, "Yeeew, check it out on the home page!")
+
+            # return HttpResponseRedirect("/")
+            return redirect(posts)
+            
+        else:
+            print(postForm.errors, formset.errors)
+    else:
+        postForm = PostForm()
+        formset = ImageFormSet(queryset=Images.objects.none())
+
+    return render(request, 'test.html', {'postForm': postForm, 'formset': formset})
+
 def listingFilesInDir(request):
     path = r"C:\serwer\htdocs\dev\python\paymentes\app\my-media\post"
     img_list = os.listdir(path)
@@ -98,6 +143,7 @@ def listingFilesInDir2(request):
     dir_name = 'post'
     path = os.path.join(settings.MEDIA_ROOT, dir_name)
     images = []
+
     for f in os.listdir(path):
         if f.endswith("jpg") or f.endswith("png"): # to avoid other files
             images.append("%s%s/%s" % (settings.MEDIA_URL, dir_name, f)) # modify the concatenation to fit your neet

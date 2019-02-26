@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Payment, Cat, Post
+from .models import Payment, Cat, Post, Images
 
 # Register your models here.
 #admin.site.register(Payment)
@@ -14,3 +14,8 @@ class PaymentAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
 
     list_display = ('title', 'content', 'date', 'thumbnail')
+
+@admin.register(Images)
+class ImagesAdmin(admin.ModelAdmin):
+
+    list_display = ('post', 'image')

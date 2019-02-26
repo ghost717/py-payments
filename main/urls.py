@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import platnosci, posts, newPost, editPost, deletePost, listingFilesInDir, listingFilesInDir2
+from .views import platnosci, posts, newPost, editPost, deletePost, listingFilesInDir, listingFilesInDir2, postGallery
 from django.contrib.auth import views as auth_views
 
 #REST
@@ -19,6 +19,7 @@ urlpatterns = [
     path('deletePost/<int:id>/', deletePost, name="deletePost"),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('postGallery/', postGallery, name="postGallery"),
     path('listingFilesInDir/', listingFilesInDir),
     path('listingFilesInDir2/', listingFilesInDir2),
     path('', include(router.urls)),
