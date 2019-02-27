@@ -26,6 +26,14 @@
             
                 <input type="submit" name="submit" value="Submit" />
             </form>
+
+            {% for i in images %}
+                {{ i }}
+            {% endfor %}
+
+            {% for i in images2 %}
+                {{ i }}
+            {% endfor %}
         </div>
 
 {% endblock %}

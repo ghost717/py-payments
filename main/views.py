@@ -136,7 +136,61 @@ def postGallery(request):
         postForm = PostForm()
         formset = ImageFormSet(queryset=Images.objects.none())
 
-    return render(request, 'test.html', {'postForm': postForm, 'formset': formset})
+    return render(request, 'test.html', {'postForm': postForm, 'formset': formset, 'images': images})
+
+@login_required
+def postGallery2(request):
+
+    dir_name = 'test'
+    path = os.path.join(settings.MEDIA_ROOT, dir_name)
+    images = []
+    images2 = []
+
+    with os.scandir(path) as it:
+        for entry in it:
+            if entry.is_dir():
+                images2.append("%s" % (entry.name))
+            if entry.is_file():
+                images.append("%s/%s" % (dir_name, entry.name))
+
+    totalImages = len(images)
+
+    ImageFormSet = modelformset_factory(Images, form=ImageForm, extra=totalImages)
+    #'extra' means the number of photos that you can upload   ^
+    if request.method == 'POST':
+
+        postForm = PostForm(request.POST)
+        formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
+
+        if postForm.is_valid() and formset.is_valid():
+            post_form = postForm.save(commit=False)
+            post_form.user = request.user
+            post_form.save()
+
+            # for form in formset.cleaned_data:
+            #     #this helps to not crash if the user   
+            #     #do not upload all the photos
+            #     if form:
+            #         image = form['image']
+            #         photo = Images(post=post_form, image=image)
+            #         photo.save()
+            #         messages.success(request, "Yeeew, check it out on the home page!")
+            for i in images:
+                image = i
+                photo = Images(post=post_form, image=image)
+                photo.save()
+                messages.success(request, "Yeeew, check it out on the home page!")
+
+            # return HttpResponseRedirect("/")
+            return redirect(posts)
+            
+        else:
+            print(postForm.errors, formset.errors)
+    else:
+        postForm = PostForm()
+        formset = ImageFormSet(queryset=Images.objects.none())
+
+    return render(request, 'test.html', {'postForm': postForm, 'formset': formset, 'images': images, 'images2': images2})
 
 def listingFilesInDir(request):
     path = r"C:\serwer\htdocs\dev\python\paymentes\app\my-media\post"
