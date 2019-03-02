@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block title %} 
+    Wszystkie posty
+{% endblock %}
+
+{% block body %} 
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    {% if user.is_authenticated %}
+                        Witam {{ user.username }}
+                        <a href="{% url 'logout' %}">logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">login</a> 
+                    {% endif %}
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <a href="">Dodaj post</a>
+                </div>
+            </div>
+
+            <div class="row">
+
+                {% for trening in treningi %}
+
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h5 class="card-title">{{ trening }}</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <p>{{ trening.description }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Payment, Post, Images
+from .models import Payment, Post, Images, Treningi
 from .forms import PostForm, ImageForm
 
 import os
@@ -44,6 +44,13 @@ def platnosci(request):
     subtotal = Payment.objects.count()
 
     return render(request, 'platnosci.html', {'platnosci': platnosci, 'suma': subtotal})
+
+def treningi(request):
+
+    treningi = Treningi.objects.all()
+    total = Treningi.objects.count()
+
+    return render(request, 'treningi.html', {'treningi': treningi, 'suma': total})
 
 def posts(request):
 

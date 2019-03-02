@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import platnosci, posts, newPost, editPost, deletePost, listingFilesInDir, listingFilesInDir2, postGallery, postGallery2
+from .views import platnosci, treningi, posts, newPost, editPost, deletePost, listingFilesInDir, listingFilesInDir2, postGallery, postGallery2
 from django.contrib.auth import views as auth_views
 
 #REST
@@ -13,6 +13,7 @@ router.register(r'rest_posts', PostViewSet)
 
 urlpatterns = [
     path('platnosci/', platnosci),
+    path('treningi/', treningi),
     path('posts/', posts, name="posts"),
     path('newPost/', newPost, name="newPost"),
     path('editPost/<int:id>/', editPost, name="editPost"),
