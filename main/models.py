@@ -44,3 +44,18 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.name # return self.name
+
+class Treningi(models.Model):
+    title = models.CharField(max_length=30)
+    description = models.TextField(null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
+    ex01 = models.CharField(max_length=128)
+    ex02 = models.CharField(max_length=128)
+    ex03 = models.CharField(max_length=128)
+    ex04 = models.CharField(max_length=128)
+    ex05 = models.CharField(max_length=128)
+    ex06 = models.CharField(max_length=128)
+    ex07 = models.CharField(max_length=128)
+    ex08 = models.CharField(max_length=128)
+    ex09 = models.CharField(max_length=128)
+    ex10 = models.CharField(max_length=128)
