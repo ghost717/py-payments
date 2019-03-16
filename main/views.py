@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Payment, Post, Images, Treningi
-from .forms import PostForm, ImageForm
+from .forms import PostForm, ImageForm, TreningiForm
 
 import os
 from django.conf import settings
@@ -51,6 +51,39 @@ def treningi(request):
     total = Treningi.objects.count()
 
     return render(request, 'treningi.html', {'treningi': treningi, 'suma': total})
+
+def nt(request):
+
+    form = TreningiForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect(treningi)
+
+    return render(request, 'formPost.html', {'form': form}) 
+
+def et(request, id):
+
+    post = get_object_or_404(Treningi, pk=id)
+
+    form = TreningiForm(request.POST or None, request.FILES or None, instance=post)
+
+    if form.is_valid():
+        form.save()
+        return redirect(treningi)
+
+    return render(request, 'formPost.html', {'form': form}) 
+
+def dt(request, id):
+
+    post = get_object_or_404(Treningi, pk=id)
+
+    if request.method == "POST":
+        post.delete()
+
+        return redirect(treningi)
+
+    return render(request, 'accept.html', {'post': post}) 
 
 def posts(request):
 
