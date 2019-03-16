@@ -17,7 +17,7 @@
                     {% endif %}
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    <a href="">Dodaj post</a>
+                    <a href="{% url 'nt' %}">Dodaj trening</a>
                 </div>
             </div>
 
@@ -52,6 +52,15 @@
                                             {% if trening.ex09 %} <li>{{ trening.ex09 }} </li> {% endif %}
                                             {% if trening.ex10 %} <li>{{ trening.ex10 }} </li> {% endif %}
                                         </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <a href="{% url 'et' trening.id %}">Edytuj <i class="fas fa-edit"></i></a>     
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <a href="{% url 'dt' trening.id %}">Usun <i class="fas fa-trash-alt"></i></a>
                                     </div>
                                 </div>
 
