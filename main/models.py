@@ -41,6 +41,7 @@ class Payment(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField(null=True, blank=True)
     value = models.IntegerField(null=True, blank=True)
+    valueType = models.IntegerField(null=True, blank=True, default=-1)
 
     def __str__(self):
         return self.name # return self.name
