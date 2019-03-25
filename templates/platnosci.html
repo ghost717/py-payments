@@ -1,3 +1,4 @@
+{% load extras %}
 {% extends 'index.html' %}
 
 {% block title %} 
@@ -10,7 +11,7 @@
                 {% for platnosc in platnosci %}
                 <!-- {{ forloop.counter0 }}  -->
 
-                    <li>{{ forloop.counter0 }} {{ platnosc }} {{ platnosc.value }}  {{ platnosc.category.cat }}  {{ suma|add:platnosc.value }}</li>
+                    <li>{{ forloop.counter0 }} {{ platnosc }} {{ platnosc.value }} {{ platnosc.category.cat }}</li>
                 
                 {% endfor %}
             </ul>
