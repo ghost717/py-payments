@@ -24,8 +24,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
+# SECRET_KEY = os.environ.get('SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
+# DEBUG = os.environ.get('DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['jwba-python.herokuapp.com', 'localhost', 'localhost:8000', '127.0.0.1']
+
+ALLOWED_HOSTS = ['django-app.webj.pl','jwba-python.herokuapp.com', 'localhost', 'localhost:8000', '127.0.0.1']
 
 # Application definition
 
